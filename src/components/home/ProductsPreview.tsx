@@ -100,7 +100,7 @@ export default function ProductsPreview() {
 
               <div className="p-6 relative bg-white z-10 transform transition-transform duration-300">
                 <h3 className="font-heading text-xl font-bold text-primary mb-2 group-hover:text-secondary transition-colors">{product.title}</h3>
-                <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
+                <p className="text-gray-600 text-sm line-clamp-2">{product.desc}</p>
               </div>
             </div>
           ))}
