@@ -5,6 +5,8 @@ import { gsap, useGSAP } from "@/lib/gsap";
 
 export default function JourneyTimeline() {
   const containerRef = useRef<HTMLElement>(null);
+  const headline = "Our Journey";
+  const words = headline.split(" ");
 
   const milestones = [
     {
@@ -55,6 +57,24 @@ export default function JourneyTimeline() {
   ];
 
   useGSAP(() => {
+    // Masked Headline Slide-Up
+    gsap.fromTo(
+      ".journey-title-word",
+      { y: "150%", rotation: 5, opacity: 0 },
+      { 
+        y: "0%", 
+        rotation: 0, 
+        opacity: 1, 
+        duration: 1.2, 
+        stagger: 0.1, 
+        ease: "power4.out",
+        scrollTrigger: {
+          trigger: ".journey-header",
+          start: "top 80%",
+        }
+      }
+    );
+
     // Animate timeline line drawing
     gsap.fromTo(".timeline-line",
       { height: 0 },
@@ -89,8 +109,16 @@ export default function JourneyTimeline() {
   return (
     <section ref={containerRef} className="py-24 bg-neutral-light overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-4">Our Journey</h2>
+        <div className="text-center max-w-3xl mx-auto mb-16 journey-header">
+          <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary mb-4 flex justify-center gap-x-3 overflow-hidden">
+            {words.map((word, idx) => (
+              <span key={idx} className="overflow-hidden inline-block pb-2">
+                <span className="journey-title-word inline-block origin-bottom-left">
+                  {word}
+                </span>
+              </span>
+            ))}
+          </h2>
           <p className="text-gray-600 text-lg">Decades of growth built on trust and quality.</p>
         </div>
 

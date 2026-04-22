@@ -8,43 +8,47 @@ import { ShoppingCart, Leaf } from "lucide-react";
 export default function ProductsPage() {
   const containerRef = useRef<HTMLElement>(null);
 
+  const headline = "Export Area";
+  const words = headline.split(" ");
+
   const products = [
     {
       id: "dry-red-chilli",
       title: "Dry Red Chilli",
       desc: "A burst of summer and colour, known for its vibrant red hue, strong aroma, and balanced pungency. Perfect for curries, sauces, and spice blends.",
-      image: "https://plus.unsplash.com/premium_photo-1726862874540-531140b04f62?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://plus.unsplash.com/premium_photo-1726862874540-531140b04f62?q=80&w=1170&auto=format&fit=crop",
       category: "Spice"
     },
     {
       id: "chilli-powder",
       title: "Chilli Powder",
       desc: "Finely ground premium chilli powder with bold colour and rich heat. Ideal for curry mixes, sauces, and spice applications.",
-      image: "https://images.unsplash.com/photo-1756361946154-f0ef47a6da45?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1756361946154-f0ef47a6da45?q=80&w=1074&auto=format&fit=crop",
       category: "Spice"
     },
     {
       id: "coriander-seeds",
       title: "Coriander Seeds",
       desc: "Fragrant coriander seeds with mild citrus notes, widely used in spice mixes and seasoning blends for enhanced flavor.",
-      image: "https://images.unsplash.com/photo-1652209741060-041f95ad2abf?q=80&w=713&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1652209741060-041f95ad2abf?q=80&w=713&auto=format&fit=crop",
       category: "Seed"
     },
     {
       id: "turmeric-powder",
       title: "Turmeric Powder",
       desc: "Premium turmeric powder with rich golden colour and high curcumin content. Ideal for cooking, wellness, and medicinal use.",
-      image: "https://images.unsplash.com/photo-1583949885751-23b7d1909378?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1583949885751-23b7d1909378?q=80&w=1170&auto=format&fit=crop",
       category: "Spice"
     },
     {
       id: "turmeric-finger",
       title: "Turmeric Finger",
       desc: "Natural dried turmeric fingers with high purity and strong aroma, suitable for grinding, medicinal applications, and export.",
-      image: "https://images.unsplash.com/photo-1741513599050-487ccfb86275?q=80&w=1228&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      image: "https://images.unsplash.com/photo-1741513599050-487ccfb86275?q=80&w=1228&auto=format&fit=crop",
       category: "Spice"
     }
   ];
+
   useGSAP(() => {
     // Header Parallax
     gsap.to(".prod-hero-bg", {
@@ -57,6 +61,26 @@ export default function ProductsPage() {
         scrub: true,
       }
     });
+
+    // Masked Headline Slide-Up
+    gsap.fromTo(
+      ".prod-headline-word",
+      { y: "150%", rotation: 5, opacity: 0 },
+      { 
+        y: "0%", 
+        rotation: 0, 
+        opacity: 1, 
+        duration: 1.2, 
+        stagger: 0.1, 
+        ease: "power4.out" 
+      }
+    );
+
+    gsap.fromTo(
+      ".prod-sub-text",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, delay: 0.4, ease: "power3.out" }
+    );
 
     // Staggered grid reveal
     gsap.fromTo(
@@ -83,15 +107,23 @@ export default function ProductsPage() {
       <section className="prod-hero relative h-[40vh] flex items-center justify-center overflow-hidden bg-primary">
         <div className="absolute inset-0 -z-20">
           <img
-            src="https://images.unsplash.com/photo-1592457711340-2412dc07b733?q=80&w=666&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src="https://images.unsplash.com/photo-1592457711340-2412dc07b733?q=80&w=666&auto=format&fit=crop"
             alt="Export Products"
             className="prod-hero-bg w-full h-[130%] object-cover -translate-y-[15%]"
           />
         </div>
         <div className="absolute inset-0 bg-primary/70 -z-10 mix-blend-multiply" />
-        <div className="text-center text-white p-4 pt-20 relative z-10">
-          <h1 className="font-heading text-5xl md:text-6xl font-bold mb-4">Export Area</h1>
-          <p className="text-xl max-w-2xl mx-auto text-white/90">Premium quality products sourced sustainably for the global market.</p>
+        <div className="text-center text-white p-4 pt-20 relative z-10 flex flex-col items-center">
+          <h1 className="font-heading text-5xl md:text-6xl font-bold mb-4 flex gap-x-4">
+            {words.map((word, idx) => (
+              <span key={idx} className="overflow-hidden inline-block pb-2">
+                <span className="prod-headline-word inline-block origin-bottom-left">
+                  {word}
+                </span>
+              </span>
+            ))}
+          </h1>
+          <p className="prod-sub-text text-xl max-w-2xl mx-auto text-white/90">Premium quality products sourced sustainably for the global market.</p>
         </div>
       </section>
 

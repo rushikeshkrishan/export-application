@@ -9,6 +9,9 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
 
+  const headline = "Finest Quality Spices, Delivered Worldwide.";
+  const words = headline.split(" ");
+
   useGSAP(() => {
     const tl = gsap.timeline();
 
@@ -18,18 +21,33 @@ export default function Hero() {
       { scale: 1, opacity: 1, duration: 1.5, ease: "power2.out" }
     );
 
+    // Masked Headline Slide-Up
     tl.fromTo(
-      ".hero-text",
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.2, ease: "power3.out" },
-      "-=0.5"
+      ".hero-headline-word",
+      { y: "150%", rotation: 5, opacity: 0 },
+      { 
+        y: "0%", 
+        rotation: 0, 
+        opacity: 1, 
+        duration: 1.2, 
+        stagger: 0.1, 
+        ease: "power4.out" 
+      },
+      "-=1.0"
+    );
+
+    tl.fromTo(
+      ".hero-sub",
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, stagger: 0.2, ease: "power3.out" },
+      "-=0.8"
     );
 
     tl.fromTo(
       ".hero-btn",
       { y: 20, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "back.out(1.5)" },
-      "-=0.4"
+      "-=0.6"
     );
 
   }, { scope: containerRef });
@@ -47,13 +65,19 @@ export default function Hero() {
 
       <div className="container mx-auto px-4 relative z-10 text-white">
         <div ref={textRef} className="max-w-3xl">
-          <span className="hero-text inline-block font-medium text-secondary mb-4 tracking-wider uppercase text-sm md:text-base">
+          <span className="hero-sub inline-block font-medium text-secondary mb-4 tracking-wider uppercase text-sm md:text-base">
             Premium Global Exporter
           </span>
-          <h1 className="hero-text font-heading text-5xl md:text-7xl font-bold leading-tight mb-6">
-            Finest Quality Spices, Delivered Worldwide.
+          <h1 className="font-heading text-5xl md:text-7xl font-bold leading-tight mb-6 flex flex-wrap gap-x-4 gap-y-2">
+            {words.map((word, idx) => (
+              <span key={idx} className="overflow-hidden inline-block pb-2">
+                <span className="hero-headline-word inline-block origin-bottom-left">
+                  {word}
+                </span>
+              </span>
+            ))}
           </h1>
-          <p className="hero-text text-lg md:text-xl text-gray-200 mb-10 max-w-2xl leading-relaxed">
+          <p className="hero-sub text-lg md:text-xl text-gray-200 mb-10 max-w-2xl leading-relaxed">
             We source, process, and export the highest quality cardamom, cumin, turmeric, and other agricultural products spanning the globe.
           </p>
           
